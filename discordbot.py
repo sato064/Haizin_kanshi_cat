@@ -62,7 +62,7 @@ def printTime():
     gaknanHour = gaknanStayTime // 3600
     gaknanTime = (gaknanStayTime - gaknanHour * 3600) // 60
     gaknanSec = (gaknanStayTime - gaknanHour * 3600 - gaknanTime * 60)
-    botRoom.send("滞在時間 "+ gaknanHour +"時間" + gaknanTime + "分" + gaknanSec + "秒")
+    botRoom.send("滞在時間 "+ str(gaknanHour) +"時間" + str(gaknanTime) + "分" + str(gaknanSec) + "秒")
 
 
 
