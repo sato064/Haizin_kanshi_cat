@@ -10,6 +10,7 @@ client = discord.Client()
 logger = getLogger(__name__)
 
 menbers = ['ぱいん','岳南','すくえあ','SETO','Ka','かりんとぅ','サクレ']
+gaknanEnter = datetime.now
 
 """
 @bot.event
@@ -36,6 +37,7 @@ async def on_voice_state_update(menber , before ,after):
         if after.channel is not None and after.channel.id in announceChs:
             print("nuketa")
             if menber.id == 361800927939788802: #gaknan
+                global gaknanEnter
                 gaknanEnter = datetime.now
             await botRoom.send("**" + after.channel.name + "** に、__" + menber.name + "__  が参加しました")
 
@@ -43,6 +45,7 @@ async def on_voice_state_update(menber , before ,after):
             print("haitta")
             if menber.id == 361800927939788802: #gaknan
                 gaknanLeave = datetime.now
+                global gaknanEnter
                 gaknanTime = gaknanLeave - gaknanEnter
             await botRoom.send('滞在時間' + gaknanTime)
 
