@@ -142,14 +142,16 @@ async def printTime():
     list = sorted(list, reverse=True, key=lambda x: x[1])
     print(list)
     count = 1
+    mess = "今週の迫真鯖滞在時間を報告します\n"
     for i in list:
         stayDTS = int(i[1])
         stayHour = stayDTS // 3600
         stayTime = (stayDTS - stayHour * 3600) // 60
         staySec = (stayDTS - stayHour * 3600 - stayTime * 60)
-        await botRoom.send("今週の迫真鯖滞在時間を報告します")
-        await botRoom.send("滞在時間" + str(count) + "位は "+ i[0] + " さん．滞在時間は"+ str(stayHour) +"時間" + str(stayTime) + "分" + str(staySec) + "秒でした．")
+        rank = "滞在時間" + str(count) + "位は "+ i[0] + " さん．滞在時間は"+ str(stayHour) +"時間" + str(stayTime) + "分" + str(staySec) + "秒でした．\n"
+        mess += rank
         count += 1
+    botRoom.send(mess)
     gaknanStayTime = 0.00
     glycineStayTime = 0.00
     kaStayTime = 0.00
