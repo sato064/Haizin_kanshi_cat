@@ -10,7 +10,6 @@ from discord.ext.commands import bot
 # bot = commands.Bot(command_prefix='/')
 client = discord.Client()
 
-
 # 一時変数
 gaknanEnter = time.time()
 glycineEnter = time.time()
@@ -87,7 +86,6 @@ async def on_voice_state_update(menber , before ,after):
                 gaknanTime = gaknanLeave - gaknanEnter
                 global gaknanStayTime
                 gaknanStayTime += gaknanTime
-                await printTime()
                 
             if menber.id == 628630250162618378: # Glycine
                 glycineLeave = time.time()
@@ -130,12 +128,16 @@ async def on_voice_state_update(menber , before ,after):
                 painTime = painLeave - painEnter
                 global painStayTime
                 painStayTime += painTime
-            
-            
+
+@client.event
+async def on_message(message):
+    # 「やあ」というチャットが来た場合のメッセージ
+    if message.content.startswith("#.ネコ起動"):
+        await printTime()
 
 async def printTime():
     global gaknanStayTime,glycineStayTime,kaStayTime,setoStayTime,suqStayTime,painStayTime,kariStayTime,kosaStayTime
-    list = [["岳南",round(gaknanStayTime)],["Glycine",round(glycineStayTime)],["Ka",round(kaStayTime)],["seto",round(setoStayTime)],["かりんとぅ",round(kariStayTime)],["すくえあ",round(suqStayTime)],["5039",round(kosaStayTime)],["ぱいん",round(painStayTime)]]
+    list = [["岳南",round(gaknanStayTime)],["Glycine",round(glycineStayTime)],["Ka",round(kaStayTime)],["SETO",round(setoStayTime)],["かりんとぅ",round(kariStayTime)],["すくえあ",round(suqStayTime)],["5039",round(kosaStayTime)],["ぱいん",round(painStayTime)]]
     botRoom = client.get_channel(713740989642178573)
     list = sorted(list, reverse=True, key=lambda x: x[1])
     print(list)
@@ -145,8 +147,7 @@ async def printTime():
         stayHour = stayDTS // 3600
         stayTime = (stayDTS - stayHour * 3600) // 60
         staySec = (stayDTS - stayHour * 3600 - stayTime * 60)
-
-        await botRoom.send("滞在時間" + str(count) + "位は"+ i[0] + "さん．滞在時間は"+ str(stayHour) +"時間" + str(stayTime) + "分" + str(staySec) + "秒でした．")
+        await botRoom.send("滞在時間" + str(count) + "位は "+ i[0] + " さん．滞在時間は"+ str(stayHour) +"時間" + str(stayTime) + "分" + str(staySec) + "秒でした．")
         count += 1
     gaknanStayTime = 0.00
     glycineStayTime = 0.00
