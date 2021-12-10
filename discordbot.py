@@ -2,15 +2,16 @@ from discord.ext import commands
 from os import getenv
 import traceback
 import discord
-from logging import getLogger
-from datetime import datetime
+import datetime
+
+from discord.ext.commands import bot
 
 # bot = commands.Bot(command_prefix='/')
 client = discord.Client()
 logger = getLogger(__name__)
 
 menbers = ['ぱいん','岳南','すくえあ','SETO','Ka','かりんとぅ','サクレ']
-gaknanEnter = datetime.now
+gaknanEnter = datetime.datetime.now
 
 """
 @bot.event
@@ -38,15 +39,16 @@ async def on_voice_state_update(menber , before ,after):
             print("nuketa")
             if menber.id == 361800927939788802: #gaknan
                 global gaknanEnter
-                gaknanEnter = datetime.now
+                gaknanEnter = datetime.datetime.now
             await botRoom.send("**" + after.channel.name + "** に、__" + menber.name + "__  が参加しました")
 
         if before.channel is not None and before.channel.id in announceChs:
             print("haitta")
             if menber.id == 361800927939788802: #gaknan
-                gaknanLeave = datetime.now
+                gaknanLeave = datetime.datetime.now
                 gaknanTime = gaknanLeave - gaknanEnter
-            await botRoom.send('滞在時間' + gaknanTime)
+            await botRoom.send('滞在時間')
+            await botRoom.send(gaknanTime)
 
 
 
