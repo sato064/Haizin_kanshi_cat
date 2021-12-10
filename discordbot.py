@@ -139,12 +139,13 @@ async def printTime():
     botRoom = client.get_channel(713740989642178573)
     list = sorted(list, reverse=True, key=lambda x: x[1])
     print(list)
-    for i in len(list):
-        stayDTS = list[i][1]
+    count = 0
+    for i in list:
+        stayDTS = i[count][1]
         stayHour = stayDTS // 3600
         stayTime = (stayDTS - stayHour * 3600) // 60
         staySec = (stayDTS - stayHour * 3600 - stayTime * 60)
-        await botRoom.send("滞在時間1位は"+ list[i][0]+ "さん．滞在時間は"+ str(stayHour) +"時間" + str(stayTime) + "分" + str(staySec) + "秒でした．")
+        await botRoom.send("滞在時間1位は"+ i[count][0]+ "さん．滞在時間は"+ str(stayHour) +"時間" + str(stayTime) + "分" + str(staySec) + "秒でした．")
     gaknanStayTime = 0.00
     glycineStayTime = 0.00
     kaStayTime = 0.00
