@@ -145,7 +145,8 @@ async def printTime():
         stayHour = stayDTS // 3600
         stayTime = (stayDTS - stayHour * 3600) // 60
         staySec = (stayDTS - stayHour * 3600 - stayTime * 60)
-        await botRoom.send("滞在時間1位は"+ count + "さん．滞在時間は"+ str(stayHour) +"時間" + str(stayTime) + "分" + str(staySec) + "秒でした．")
+
+        await botRoom.send("滞在時間1位は"+ str(count) + "さん．滞在時間は"+ str(stayHour) +"時間" + str(stayTime) + "分" + str(staySec) + "秒でした．")
         count += 1
     gaknanStayTime = 0.00
     glycineStayTime = 0.00
