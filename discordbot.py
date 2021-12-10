@@ -15,7 +15,7 @@ menbers = ['ぱいん','岳南','すくえあ','SETO','Ka','かりんとぅ','�
 gaknanEnter = time.time()
 
 # 保管変数
-gaknanStayTime = time.gmtime(0)
+gaknanStayTime = 0.000
 
 
 """
