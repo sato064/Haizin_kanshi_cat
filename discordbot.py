@@ -139,7 +139,7 @@ async def printTime():
     botRoom = client.get_channel(713740989642178573)
     list = sorted(list, reverse=True, key=lambda x: x[1])
     print(list)
-    for i in list:
+    for i in range(list):
         stayDTS = list[i][1]
         stayHour = stayDTS // 3600
         stayTime = (stayDTS - stayHour * 3600) // 60
