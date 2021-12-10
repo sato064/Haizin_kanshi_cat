@@ -38,12 +38,8 @@ async def on_message(message):
     # menbers生成 [[id,name,stayTime]]
     if message.content == "/init":
         SERVER_ID = message.guild.id
-        GUILD = client.get_guild(SERVER_ID)
-        list = []
-        for member in client.get_all_members():
-            list.append(member)
-        print(list)
-
+        guild = client.get_guild(SERVER_ID)
+        list = [member.name for member in client.get_all_members()]
 @client.event
 async def on_voice_state_update(menber , before ,after):
     if before.channel != after.channel:
