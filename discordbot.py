@@ -141,7 +141,7 @@ async def printTime():
     print(list)
     count = 0
     for i in list:
-        stayDTS = i[count][1]
+        stayDTS = int(i[count][1])
         stayHour = stayDTS // 3600
         stayTime = (stayDTS - stayHour * 3600) // 60
         staySec = (stayDTS - stayHour * 3600 - stayTime * 60)
