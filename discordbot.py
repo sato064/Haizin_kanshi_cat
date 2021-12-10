@@ -39,8 +39,13 @@ async def on_message(message):
     if message.content == "/init":
         SERVER_ID = message.guild.id
         GUILD = client.get_guild(SERVER_ID)
-        print(SERVER_ID)
-        print(GUILD)
+        list = []
+        for GUILD in client.guilds:
+            for member in GUILD.members:
+                list.append(member)
+        print(list)
+
+@client.event
 async def on_voice_state_update(menber , before ,after):
     if before.channel != after.channel:
         announceChs = [713740989642178574,918717105136873492]
