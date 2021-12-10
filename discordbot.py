@@ -55,14 +55,15 @@ async def on_voice_state_update(menber , before ,after):
                 printTime()
             
 
-def printTime():
+async def printTime():
     botRoom = client.get_channel(713740989642178573)
     global gaknanStayTime
     gaknanStayTime = round(gaknanStayTime)
     gaknanHour = gaknanStayTime // 3600
     gaknanTime = (gaknanStayTime - gaknanHour * 3600) // 60
     gaknanSec = (gaknanStayTime - gaknanHour * 3600 - gaknanTime * 60)
-    botRoom.send("滞在時間 "+ str(gaknanHour) +"時間" + str(gaknanTime) + "分" + str(gaknanSec) + "秒")
+    await botRoom.send("滞在時間 "+ str(gaknanHour) +"時間" + str(gaknanTime) + "分" + str(gaknanSec) + "秒")
+    gaknanStayTime = 0.00
 
 
 
