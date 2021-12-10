@@ -8,7 +8,6 @@ from discord.ext.commands import bot
 
 # bot = commands.Bot(command_prefix='/')
 client = discord.Client()
-logger = getLogger(__name__)
 
 menbers = ['ぱいん','岳南','すくえあ','SETO','Ka','かりんとぅ','サクレ']
 gaknanEnter = datetime.datetime.now
