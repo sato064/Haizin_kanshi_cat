@@ -151,7 +151,7 @@ async def printTime():
         rank = "滞在時間" + str(count) + "位は "+ i[0] + " さん．滞在時間は"+ str(stayHour) +"時間" + str(stayTime) + "分" + str(staySec) + "秒でした．\n"
         mess += rank
         count += 1
-    botRoom.send(mess)
+    await botRoom.send(mess)
     gaknanStayTime = 0.00
     glycineStayTime = 0.00
     kaStayTime = 0.00
