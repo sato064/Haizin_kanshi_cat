@@ -38,13 +38,13 @@ async def on_voice_state_update(menber , before ,after):
             print("nuketa")
             if menber.id == 361800927939788802: #gaknan
                 global gaknanEnter
-                gaknanEnter = datetime.datetime.now
+                gaknanEnter = datetime.datetime.now()
             await botRoom.send("**" + after.channel.name + "** に、__" + menber.name + "__  が参加しました")
 
         if before.channel is not None and before.channel.id in announceChs:
             print("haitta")
             if menber.id == 361800927939788802: #gaknan
-                gaknanLeave = datetime.datetime.now
+                gaknanLeave = datetime.datetime.now()
                 gaknanTime = gaknanLeave - gaknanEnter
             await botRoom.send('滞在時間')
             await botRoom.send(gaknanTime)
