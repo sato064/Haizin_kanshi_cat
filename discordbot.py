@@ -10,7 +10,7 @@ from discord.ext.commands import bot
 # bot = commands.Bot(command_prefix='/')
 client = discord.Client()
 
-menbers = ['ぱいん','岳南','すくえあ','SETO','Ka','かりんとぅ','サクレ']
+
 # 一時変数
 gaknanEnter = time.time()
 
@@ -33,8 +33,14 @@ async def ping(ctx):
     await ctx.send('pong')
 
 """
-
 @client.event
+async def on_message(message):
+    # menbers生成 [[id,name,stayTime]]
+    if message.content == "/init":
+        SERVER_ID = message.guild.id
+        GUILD = client.get_guild(SERVER_ID)
+        print(SERVER_ID)
+        print(GUILD)
 async def on_voice_state_update(menber , before ,after):
     if before.channel != after.channel:
         announceChs = [713740989642178574,918717105136873492]
@@ -47,12 +53,13 @@ async def on_voice_state_update(menber , before ,after):
 
         if before.channel is not None and before.channel.id in announceChs:
             print("haitta")
+            botRoom = client.get_channel(713740989642178573)
             if menber.id == 361800927939788802: #gaknan
                 gaknanLeave = time.time()
                 gaknanTime = gaknanLeave - gaknanEnter
                 global gaknanStayTime
                 gaknanStayTime += gaknanTime
-                await printTime()
+                await botRoom.send("今回の滞在時間 "+ str(gaknanStayTime))
             
 
 async def printTime():
@@ -64,6 +71,7 @@ async def printTime():
     gaknanSec = (gaknanStayTime - gaknanHour * 3600 - gaknanTime * 60)
     await botRoom.send("滞在時間 "+ str(gaknanHour) +"時間" + str(gaknanTime) + "分" + str(gaknanSec) + "秒")
     gaknanStayTime = 0.00
+
 
 
 
