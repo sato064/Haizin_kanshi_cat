@@ -14,7 +14,7 @@ menbers = ['ぱいん','岳南','すくえあ','SETO','Ka','かりんとぅ','�
 gaknanEnter = datetime.datetime.now
 
 # 保管変数
-gaknanStayTime = datetime.date(0000,00,00,00,00,00)
+gaknanStayTime = datetime.datetime(0000,00,00,00,00,00,0000)
 
 
 
