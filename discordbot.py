@@ -4,10 +4,10 @@ import traceback
 import discord
 from logging import getLogger
 
-bot = commands.Bot(command_prefix='/')
+# bot = commands.Bot(command_prefix='/')
 client = discord.Client()
 logger = getLogger(__name__)
-
+"""
 @bot.event
 async def on_command_error(ctx, error):
     orig_error = getattr(error, "original", error)
@@ -21,6 +21,7 @@ async def ping(ctx):
     print("oooooooooooooooooooooooo")
     await ctx.send('pong')
 
+"""
 @client.event
 async def on_voice_state_update(menber , before ,after):
     if before.channel != after.channel:
@@ -30,14 +31,14 @@ async def on_voice_state_update(menber , before ,after):
         if before.channel is not None and before.channel.id in announceChs:
             logger.info("haitta")
             print("haitta")
-            await botRoom.send("**" + before.channel.name + "** から、__" + menber.name + "__  が抜けました！")
+            await botRoom.send("**" + before.channel.name + "** から、__" + menber.name + "__  が抜けました")
         if after.channel is not None and after.channel.id in announceChs:
             logger.info("nuketa")
             print("nuketa")
-            await botRoom.send("**" + after.channel.name + "** に、__" + menber.name + "__  が参加しました！")
+            await botRoom.send("**" + after.channel.name + "** に、__" + menber.name + "__  が参加しました")
 
 
 
 token = getenv('DISCORD_BOT_TOKEN')
-bot.run(token)
+# bot.run(token)
 client.run(token)
