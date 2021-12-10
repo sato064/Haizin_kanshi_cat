@@ -3,6 +3,7 @@ from os import getenv
 import traceback
 import discord
 import datetime
+import time
 
 from discord.ext.commands import bot
 
@@ -11,11 +12,10 @@ client = discord.Client()
 
 menbers = ['ぱいん','岳南','すくえあ','SETO','Ka','かりんとぅ','サクレ']
 # 一時変数
-gaknanEnter = datetime.datetime.now
+gaknanEnter = time.time()
 
 # 保管変数
-gaknanStayTime = datetime.datetime(0000,00,00,00,00,00,0000)
-
+gaknanStayTime = time.gmtime(0)
 
 
 """
@@ -44,12 +44,12 @@ async def on_voice_state_update(menber , before ,after):
             print("nuketa")
             if menber.id == 361800927939788802: #gaknan
                 global gaknanEnter
-                gaknanEnter = datetime.datetime.now()
+                gaknanEnter = time.time()
 
         if before.channel is not None and before.channel.id in announceChs:
             print("haitta")
             if menber.id == 361800927939788802: #gaknan
-                gaknanLeave = datetime.datetime.now()
+                gaknanLeave = time.time()
                 gaknanTime = gaknanLeave - gaknanEnter
                 global gaknanStayTime
                 gaknanStayTime += gaknanTime
