@@ -15,7 +15,7 @@ menbers = ['ぱいん','岳南','すくえあ','SETO','Ka','かりんとぅ','�
 gaknanEnter = time.time()
 
 # 保管変数
-gaknanStayTime = 0.000
+gaknanStayTime = 0.00
 
 
 """
@@ -37,7 +37,6 @@ async def ping(ctx):
 @client.event
 async def on_voice_state_update(menber , before ,after):
     if before.channel != after.channel:
-        botRoom = client.get_channel(713740989642178573)
         announceChs = [713740989642178574,918717105136873492]
 
         if after.channel is not None and after.channel.id in announceChs:
@@ -53,7 +52,17 @@ async def on_voice_state_update(menber , before ,after):
                 gaknanTime = gaknanLeave - gaknanEnter
                 global gaknanStayTime
                 gaknanStayTime += gaknanTime
-            await botRoom.send(gaknanStayTime)
+                printTime()
+            
+
+def printTime():
+    botRoom = client.get_channel(713740989642178573)
+    global gaknanStayTime
+    gaknanStayTime = round(gaknanStayTime)
+    gaknanHour = gaknanStayTime // 3600
+    gaknanTime = (gaknanStayTime - gaknanHour * 3600) // 60
+    gaknanSec = (gaknanStayTime - gaknanHour * 3600 - gaknanTime * 60)
+    botRoom.send("滞在時間 "+ gaknanHour +"時間" + gaknanTime + "分" + gaknanSec + "秒")
 
 
 
