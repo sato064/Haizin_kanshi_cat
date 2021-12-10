@@ -52,7 +52,7 @@ async def on_voice_state_update(menber , before ,after):
                 gaknanTime = gaknanLeave - gaknanEnter
                 global gaknanStayTime
                 gaknanStayTime += gaknanTime
-                printTime()
+                await printTime()
             
 
 async def printTime():
