@@ -147,6 +147,7 @@ async def printTime():
         stayHour = stayDTS // 3600
         stayTime = (stayDTS - stayHour * 3600) // 60
         staySec = (stayDTS - stayHour * 3600 - stayTime * 60)
+        await botRoom.send("今週の迫真鯖滞在時間を報告します")
         await botRoom.send("滞在時間" + str(count) + "位は "+ i[0] + " さん．滞在時間は"+ str(stayHour) +"時間" + str(stayTime) + "分" + str(staySec) + "秒でした．")
         count += 1
     gaknanStayTime = 0.00
