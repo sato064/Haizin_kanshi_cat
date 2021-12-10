@@ -40,6 +40,7 @@ async def on_message(message):
         SERVER_ID = message.guild.id
         guild = client.get_guild(SERVER_ID)
         list = [member.name for member in client.get_all_members()]
+        print(list)
 @client.event
 async def on_voice_state_update(menber , before ,after):
     if before.channel != after.channel:
