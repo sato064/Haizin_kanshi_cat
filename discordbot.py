@@ -10,7 +10,13 @@ from discord.ext.commands import bot
 client = discord.Client()
 
 menbers = ['ぱいん','岳南','すくえあ','SETO','Ka','かりんとぅ','サクレ']
+# 一時変数
 gaknanEnter = datetime.datetime.now
+
+# 保管変数
+gaknanStayTime = datetime.date(0000,00,00,00,00,00)
+
+
 
 """
 @bot.event
@@ -39,15 +45,15 @@ async def on_voice_state_update(menber , before ,after):
             if menber.id == 361800927939788802: #gaknan
                 global gaknanEnter
                 gaknanEnter = datetime.datetime.now()
-            await botRoom.send("**" + after.channel.name + "** に、__" + menber.name + "__  が参加しました")
 
         if before.channel is not None and before.channel.id in announceChs:
             print("haitta")
             if menber.id == 361800927939788802: #gaknan
                 gaknanLeave = datetime.datetime.now()
                 gaknanTime = gaknanLeave - gaknanEnter
-            await botRoom.send('滞在時間')
-            await botRoom.send(gaknanTime)
+                global gaknanStayTime
+                gaknanStayTime += gaknanTime
+            await botRoom.send(gaknanStayTime)
 
 
 
