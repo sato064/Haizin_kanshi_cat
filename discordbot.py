@@ -40,9 +40,8 @@ async def on_message(message):
         SERVER_ID = message.guild.id
         GUILD = client.get_guild(SERVER_ID)
         list = []
-        for GUILD in client.guilds:
-            for member in GUILD.members:
-                list.append(member)
+        for member in client.get_all_members():
+            list.append(member)
         print(list)
 
 @client.event
