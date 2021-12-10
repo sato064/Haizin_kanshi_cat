@@ -18,6 +18,7 @@ async def on_command_error(ctx, error):
 @bot.command()
 async def ping(ctx):
     logger.info("uoooooooooooooooooooooooo")
+    print("oooooooooooooooooooooooo")
     await ctx.send('pong')
 
 @client.event
@@ -28,9 +29,11 @@ async def on_voice_state_update(menber , before ,after):
 
         if before.channel is not None and before.channel.id in announceChs:
             logger.info("haitta")
+            print("haitta")
             await botRoom.send("**" + before.channel.name + "** から、__" + menber.name + "__  が抜けました！")
         if after.channel is not None and after.channel.id in announceChs:
             logger.info("nuketa")
+            print("nuketa")
             await botRoom.send("**" + after.channel.name + "** に、__" + menber.name + "__  が参加しました！")
 
 
