@@ -48,7 +48,7 @@ async def ping(ctx):
 @client.event
 async def on_voice_state_update(menber , before ,after):
     if before.channel != after.channel:
-        announceChs = [586514492481994765,764127010590949406]
+        announceChs = [713740989642178574,764127010590949406]
 
         if after.channel is not None and after.channel.id in announceChs:
             print("nuketa")
@@ -79,8 +79,6 @@ async def on_voice_state_update(menber , before ,after):
 
         if before.channel is not None and before.channel.id in announceChs:
             print("haitta")
-            botRoom = client.get_channel(713740989642178573)
-
             if menber.id == 361800927939788802: #gaknan
                 gaknanLeave = time.time()
                 gaknanTime = gaknanLeave - gaknanEnter
@@ -131,14 +129,13 @@ async def on_voice_state_update(menber , before ,after):
 
 @client.event
 async def on_message(message):
-    # 「やあ」というチャットが来た場合のメッセージ
     if message.content.startswith("#.ネコ起動"):
         await printTime()
 
 async def printTime():
     global gaknanStayTime,glycineStayTime,kaStayTime,setoStayTime,suqStayTime,painStayTime,kariStayTime,kosaStayTime
     list = [["岳南",round(gaknanStayTime)],["Glycine",round(glycineStayTime)],["Ka",round(kaStayTime)],["SETO",round(setoStayTime)],["かりんとぅ",round(kariStayTime)],["すくえあ",round(suqStayTime)],["5039",round(kosaStayTime)],["ぱいん",round(painStayTime)]]
-    botRoom = client.get_channel(586514492481994763)
+    botRoom = client.get_channel(713740989642178573)
     list = sorted(list, reverse=True, key=lambda x: x[1])
     print(list)
     count = 1
