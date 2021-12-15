@@ -105,7 +105,7 @@ async def printTime():
                 database = "heroku_e41d4f624061a51"
     )
     cur = conn.cursor()
-    cur.execute("select * from user_staytimes ORDER BY user_stay_time DESC")
+    cur.execute("select * from user_staytimes ORDER BY CAST(user_stay_time as signed) DESC")
     rows = cur.fetchall()
     for row in rows:
         print(row)
