@@ -12,12 +12,7 @@ from discord.ext.commands import bot
 # bot = commands.Bot(command_prefix='/')
 client = discord.Client()
 
-conn = mysql.connector.connect(
-    host = "us-cdbr-east-05.cleardb.net",
-    user = getenv("DB_USER"),
-    password = getenv("DB_PASS"),
-    database = "heroku_e41d4f624061a51"
-)
+
 
 
 
@@ -62,6 +57,12 @@ async def on_voice_state_update(menber , before ,after):
         announceChs = [586514492481994765,764127010590949406]
 
         if after.channel is not None and after.channel.id in announceChs:
+            conn = mysql.connector.connect(
+            host = "us-cdbr-east-05.cleardb.net",
+            user = getenv("DB_USER"),
+            password = getenv("DB_PASS"),
+            database = "heroku_e41d4f624061a51"
+            )
             cur = conn.cursor()
             cur.execute("select * from users where user_id = %s",(menber.id, ))
             rows = cur.fetchall()
