@@ -62,32 +62,14 @@ async def on_voice_state_update(menber , before ,after):
         announceChs = [586514492481994765,764127010590949406]
 
         if after.channel is not None and after.channel.id in announceChs:
-            print(str(menber.name) + "Joinned")
-            print(conn.is_connected())
-            if menber.id == 361800927939788802: #gaknan
-                global gaknanEnter
-                gaknanEnter = time.time()
-            if menber.id == 628630250162618378: # Glycine
-                global glycineEnter
-                glycineEnter = time.time()
-            if menber.id == 408969059657318420: # Ka
-                global kaEnter
-                kaEnter = time.time()
-            if menber.id == 368770731628036109: # seto
-                global setoEnter
-                setoEnter = time.time()
-            if menber.id == 402099072733020173: # karintoxu
-                global kariEnter
-                kariEnter = time.time()
-            if menber.id == 338707217459052545: # suqare
-                global suqEnter
-                suqEnter = time.time()
-            if menber.id == 369491047543341057: # sakure
-                global kosaEnter
-                kosaEnter = time.time()
-            if menber.id == 369834383202320385: # pain
-                global painEnter
-                painEnter = time.time()
+            cur = conn.cursor()
+            cur.execute("select * from users where user_id = %s",(menber.id, ))
+            rows = cur.fetchall()
+            if rows != null:
+                for row in rows:
+                    print(row)
+            else:
+                print("nanmo nai yo")
 
         if before.channel is not None and before.channel.id in announceChs:
             print(str(menber.name) + "leaved")
