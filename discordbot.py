@@ -71,7 +71,7 @@ async def on_voice_state_update(menber , before ,after):
                 print("new user recorded,He/She is " + menber.name)
             else:
                 for row in rows:
-                    print(row + "Entered room")
+                    print(row)
                 
 
         if before.channel is not None and before.channel.id in announceChs:
