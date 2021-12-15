@@ -65,7 +65,7 @@ async def on_voice_state_update(menber , before ,after):
             cur = conn.cursor()
             cur.execute("select * from users where user_id = %s",(menber.id, ))
             rows = cur.fetchall()
-            if rows != null:
+            if rows != None:
                 for row in rows:
                     print(row)
             else:
