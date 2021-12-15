@@ -80,7 +80,8 @@ async def on_voice_state_update(menber , before ,after):
             cur.execute("select * from user_entertimes where user_id = %s",(menber.id, ))
             rows = cur.fetchall()
             enter_time = rows[0][1]
-            stay_time = float(time.time()) - float(enter_time())
+            print(enter_time)
+            stay_time = float(time.time()) - float(enter_time)
             print(stay_time)
             cur.execute("INSERT INTO user_staytimes VALUES (%s, %s)",(menber.id, str(stay_time)))
             conn.commit()
