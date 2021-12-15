@@ -91,12 +91,6 @@ async def on_voice_state_update(menber , before ,after):
             conn.commit()
             conn.close()
 
-            print(str(menber.name) + "leaved")
-            if menber.id == 361800927939788802: #gaknan
-                gaknanLeave = time.time()
-                gaknanTime = gaknanLeave - gaknanEnter
-                global gaknanStayTime
-                gaknanStayTime += gaknanTime
 
 @client.event
 async def on_message(message):
@@ -104,30 +98,17 @@ async def on_message(message):
         await printTime()
 
 async def printTime():
-    global gaknanStayTime,glycineStayTime,kaStayTime,setoStayTime,suqStayTime,painStayTime,kariStayTime,kosaStayTime
-    list = [["岳南",round(gaknanStayTime)],["Glycine",round(glycineStayTime)],["Ka",round(kaStayTime)],["SETO",round(setoStayTime)],["かりんとぅ",round(kariStayTime)],["すくえあ",round(suqStayTime)],["5039",round(kosaStayTime)],["ぱいん",round(painStayTime)]]
-    botRoom = client.get_channel(586514492481994763)
-    list = sorted(list, reverse=True, key=lambda x: x[1])
-    print(list)
-    count = 1
-    mess = "今週の迫真サーバ滞在時間を報告します\n"
-    for i in list:
-        stayDTS = int(i[1])
-        stayHour = stayDTS // 3600
-        stayTime = (stayDTS - stayHour * 3600) // 60
-        staySec = (stayDTS - stayHour * 3600 - stayTime * 60)
-        rank = "滞在時間" + str(count) + "位は "+ i[0] + " さん．滞在時間は"+ str(stayHour) +"時間" + str(stayTime) + "分" + str(staySec) + "秒でした．\n"
-        mess += rank
-        count += 1
-    await botRoom.send(mess)
-    gaknanStayTime = 0.00
-    glycineStayTime = 0.00
-    kaStayTime = 0.00
-    setoStayTime = 0.00
-    painStayTime = 0.00
-    suqStayTime = 0.00
-    kariStayTime = 0.00
-    kosaStayTime= 0.00
+    conn = mysql.connector.connect(
+                host = "us-cdbr-east-05.cleardb.net",
+                user = getenv("DB_USER"),
+                password = getenv("DB_PASS"),
+                database = "heroku_e41d4f624061a51"
+    )
+    cur = conn.cursor()
+    cur.execute("select * from user_staytimes ORDER BY user_stay_time DESC")
+    rows = cur.fetchall()
+    for row in rows:
+        print(row)
 
 token = getenv('DISCORD_BOT_TOKEN')
 # bot.run(token)
