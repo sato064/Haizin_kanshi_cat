@@ -107,9 +107,17 @@ async def printTime():
     cur = conn.cursor()
     cur.execute("select * from user_staytimes ORDER BY CAST(user_stay_time as signed) DESC")
     rows = cur.fetchall()
+    mess = "今週のサーバ滞在時間報告です．\n"
+    count = 1
     for row in rows:
-        print(row)
-
+        staySec = round(float(row[1]))
+        stayHours = staySec // 3600
+        stayMins = (staySec - stayHours * 3600) // 60
+        staySec = staySec - stayHours * 3600 - stayMins * 60 
+        this_mess = ("第" + str(count) + "位は " + row[0] + " さん．滞在時間は" + str(stayHours) + "時間" + str(stayMins) + "分" + str(staySec) + "秒でした．\n") 
+        mess += this_mess
+        count += 1
+    print(mess)
 token = getenv('DISCORD_BOT_TOKEN')
 # bot.run(token)
 client.run(token)
