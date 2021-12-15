@@ -82,7 +82,7 @@ async def on_voice_state_update(menber , before ,after):
             rows = cur.fetchall()
             enter_time = rows[0][1]
             print(enter_time)
-            cur.execute("select * from user_staytimes where user_id = %s",(menber.id, ))
+            cur.execute("select * from user_staytimes where user_name = %s",(menber.name, ))
             staytimerows = cur.fetchall()
             stay_time = staytimerows[0][1]
             this_stay_time = float(time.time()) - float(enter_time) + float(stay_time)
