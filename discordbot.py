@@ -60,6 +60,7 @@ async def on_voice_state_update(menber , before ,after):
             rows = cur.fetchall()
             if not rows:
                 cur.execute("INSERT INTO users VALUES (%s, %s)",(menber.id, menber.name))
+                cur.execute("INSERT INTO user_staytimes VALUES (%s, 0)",(menber.id, ))
                 conn.commit()
                 print("new user recorded,He/She is " + menber.name)
             else:
@@ -83,7 +84,8 @@ async def on_voice_state_update(menber , before ,after):
             print(enter_time)
             stay_time = float(time.time()) - float(enter_time)
             print(stay_time)
-            cur.execute("INSERT INTO user_staytimes VALUES (%s, %s)",(menber.id, str(stay_time)))
+            cur.execute("UPDATE user_staytimes SET user_stay_time = %s WHERE user_id = %s)",(str(stay_time),menber.id ))
+            cur.execute("DELETE FROM user_entertimes WHERE user_id = %s",(menber.id, ))
             conn.commit()
             conn.close()
 
