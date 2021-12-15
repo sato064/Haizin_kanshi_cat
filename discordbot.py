@@ -1,5 +1,5 @@
 from discord.ext import commands
-from os import getenv
+from os import getenv, name
 import traceback
 import discord
 import datetime
@@ -67,7 +67,8 @@ async def on_voice_state_update(menber , before ,after):
             cur.execute("select * from users where user_id = %s",(menber.id, ))
             rows = cur.fetchall()
             if not rows:
-                print("nanmo nai yo")
+                cur.execute("INSERT INTO users VALUES (%s, %s)",(menber.id, menber.name))
+                print("new user recorded,He/She is " + menber.name)
             else:
                 for row in rows:
                     print(row)
