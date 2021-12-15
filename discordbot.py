@@ -118,6 +118,8 @@ async def printTime():
         mess += this_mess
         count += 1
     print(mess)
+    botRoom = client.get_channel(920744115740766268)
+    await botRoom.send(mess)
 token = getenv('DISCORD_BOT_TOKEN')
 # bot.run(token)
 client.run(token)
