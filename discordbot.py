@@ -66,11 +66,12 @@ async def on_voice_state_update(menber , before ,after):
             cur = conn.cursor()
             cur.execute("select * from users where user_id = %s",(menber.id, ))
             rows = cur.fetchall()
-            if rows != None:
+            if not rows:
+                print("nanmo nai yo")
+            else:
                 for row in rows:
                     print(row)
-            else:
-                print("nanmo nai yo")
+                
 
         if before.channel is not None and before.channel.id in announceChs:
             print(str(menber.name) + "leaved")
