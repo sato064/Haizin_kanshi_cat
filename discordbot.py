@@ -86,7 +86,7 @@ async def on_voice_state_update(menber , before ,after):
             staytimerows = cur.fetchall()
             stay_time = staytimerows[0][1]
             this_stay_time = float(time.time()) - float(enter_time) + float(stay_time)
-            cur.execute("UPDATE user_staytimes SET user_stay_time = %s WHERE user_id = %s",(str(this_stay_time),menber.id ))
+            cur.execute("UPDATE user_staytimes SET user_stay_time = %s WHERE user_name = %s",(str(this_stay_time),menber.name ))
             cur.execute("DELETE FROM user_entertimes WHERE user_id = %s",(menber.id, ))
             conn.commit()
             conn.close()
