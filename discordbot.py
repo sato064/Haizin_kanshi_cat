@@ -56,7 +56,6 @@ async def on_voice_state_update(menber , before ,after):
     if before.channel != after.channel:
         announceChs = [586514492481994765,764127010590949406]
         if after.channel is not None and after.channel.id in announceChs:
-            print(menber.name + "Entered")
             conn = mysql.connector.connect(
                 host = "us-cdbr-east-05.cleardb.net",
                 user = getenv("DB_USER"),
@@ -72,7 +71,7 @@ async def on_voice_state_update(menber , before ,after):
                 print("new user recorded,He/She is " + menber.name)
             else:
                 for row in rows:
-                    print(row)
+                    print(row + "Entered room")
                 
 
         if before.channel is not None and before.channel.id in announceChs:
