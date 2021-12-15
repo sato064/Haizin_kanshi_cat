@@ -51,7 +51,7 @@ async def on_voice_state_update(menber , before ,after):
         announceChs = [586514492481994765,764127010590949406]
 
         if after.channel is not None and after.channel.id in announceChs:
-            print("Joinned")
+            print(str(menber.name) + "Joinned")
             if menber.id == 361800927939788802: #gaknan
                 global gaknanEnter
                 gaknanEnter = time.time()
@@ -78,7 +78,7 @@ async def on_voice_state_update(menber , before ,after):
                 painEnter = time.time()
 
         if before.channel is not None and before.channel.id in announceChs:
-            print("leaved")
+            print(str(menber.name) + "leaved")
             if menber.id == 361800927939788802: #gaknan
                 gaknanLeave = time.time()
                 gaknanTime = gaknanLeave - gaknanEnter
