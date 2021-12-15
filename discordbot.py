@@ -68,6 +68,7 @@ async def on_voice_state_update(menber , before ,after):
             rows = cur.fetchall()
             if not rows:
                 cur.execute("INSERT INTO users VALUES (%s, %s)",(menber.id, menber.name))
+                conn.commit()
                 print("new user recorded,He/She is " + menber.name)
             else:
                 for row in rows:
