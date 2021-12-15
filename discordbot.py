@@ -4,11 +4,22 @@ import traceback
 import discord
 import datetime
 import time
+import mysql.connector
+
 
 from discord.ext.commands import bot
 
 # bot = commands.Bot(command_prefix='/')
 client = discord.Client()
+
+conn = mysql.connector.connect(
+    host = "us-cdbr-east-05.cleardb.net",
+    user = getenv("DB_USER"),
+    password = getenv("DB_PASS"),
+    database = "heroku_e41d4f624061a51"
+)
+print(conn.is_connected())
+
 
 # 一時変数
 gaknanEnter = time.time()
