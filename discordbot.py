@@ -12,10 +12,6 @@ from discord.ext.commands import bot
 # bot = commands.Bot(command_prefix='/')
 client = discord.Client()
 
-
-
-
-
 # 一時変数
 gaknanEnter = time.time()
 glycineEnter = time.time()
@@ -72,7 +68,8 @@ async def on_voice_state_update(menber , before ,after):
             else:
                 for row in rows:
                     print(row)
-                
+            cur.execute("INSERT INTO user_entertimes VALUES (%s, %s)",(menber.id, str(time.time())))
+
 
         if before.channel is not None and before.channel.id in announceChs:
             print(str(menber.name) + "leaved")
