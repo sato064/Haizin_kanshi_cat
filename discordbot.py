@@ -18,7 +18,7 @@ conn = mysql.connector.connect(
     password = getenv("DB_PASS"),
     database = "heroku_e41d4f624061a51"
 )
-print(conn.is_connected())
+
 
 
 # 一時変数
@@ -63,6 +63,7 @@ async def on_voice_state_update(menber , before ,after):
 
         if after.channel is not None and after.channel.id in announceChs:
             print(str(menber.name) + "Joinned")
+            print(conn.is_connected())
             if menber.id == 361800927939788802: #gaknan
                 global gaknanEnter
                 gaknanEnter = time.time()
