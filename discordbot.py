@@ -6,9 +6,6 @@ import datetime
 import time
 import mysql.connector
 
-
-from discord.ext.commands import bot
-
 # bot = commands.Bot(command_prefix='/')
 client = discord.Client()
 
@@ -70,56 +67,31 @@ async def on_voice_state_update(menber , before ,after):
                     print(row)
             cur.execute("INSERT INTO user_entertimes VALUES (%s, %s)",(menber.id, str(time.time())))
             conn.commit()
+            conn.close()
 
         if before.channel is not None and before.channel.id in announceChs:
+            conn = mysql.connector.connect(
+                host = "us-cdbr-east-05.cleardb.net",
+                user = getenv("DB_USER"),
+                password = getenv("DB_PASS"),
+                database = "heroku_e41d4f624061a51"
+            )
+            cur = conn.cursor()
+            cur.execute("select * from user_entertimes where user_id = %s",(menber.id, ))
+            rows = cur.fetchall()
+            enter_time = rows[0][1]
+            stay_time = float(time.time()) - float(enter_time())
+            print(stay_time)
+            cur.execute("INSERT INTO user_staytimes VALUES (%s, %s)",(menber.id, str(stay_time)))
+            conn.commit()
+            conn.close()
+
             print(str(menber.name) + "leaved")
             if menber.id == 361800927939788802: #gaknan
                 gaknanLeave = time.time()
                 gaknanTime = gaknanLeave - gaknanEnter
                 global gaknanStayTime
                 gaknanStayTime += gaknanTime
-                
-            if menber.id == 628630250162618378: # Glycine
-                glycineLeave = time.time()
-                glycineTime = glycineLeave - glycineEnter
-                global glycineStayTime
-                glycineStayTime += glycineTime
-
-            if menber.id == 408969059657318420: # Ka
-                kaLeave = time.time()
-                kaTime = kaLeave - kaEnter
-                global kaStayTime
-                kaStayTime += kaTime
-            
-            if menber.id == 368770731628036109: # seto
-                setoLeave = time.time()
-                setoTime = setoLeave - setoEnter
-                global setoStayTime
-                setoStayTime += setoTime
-            
-            if menber.id == 402099072733020173: # karintoxu
-                kariLeave = time.time()
-                kariTime = kariLeave - kariEnter
-                global kariStayTime
-                kariStayTime += kariTime
-
-            if menber.id == 402099072733020173: # suquare
-                suqLeave = time.time()
-                suqTime = suqLeave - suqEnter
-                global suqStayTime
-                suqStayTime += suqTime
-            
-            if menber.id == 369491047543341057: # sakure
-                kosaLeave = time.time()
-                kosaTime = kosaLeave - kosaEnter
-                global kosaStayTime
-                kosaStayTime += kosaTime
-
-            if menber.id == 369834383202320385: # pain
-                painLeave = time.time()
-                painTime = painLeave - painEnter
-                global painStayTime
-                painStayTime += painTime
 
 @client.event
 async def on_message(message):
@@ -133,7 +105,7 @@ async def printTime():
     list = sorted(list, reverse=True, key=lambda x: x[1])
     print(list)
     count = 1
-    mess = "今週の迫真鯖滞在時間を報告します\n"
+    mess = "今週の迫真サーバ滞在時間を報告します\n"
     for i in list:
         stayDTS = int(i[1])
         stayHour = stayDTS // 3600
