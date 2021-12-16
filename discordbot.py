@@ -116,7 +116,7 @@ async def debug_time(guild_id,mes_ch_id):
         stay_hours = stay_sec // 3600
         stay_mins = (stay_sec - stay_hours * 3600) // 60
         stay_sec = stay_sec - stay_hours * 3600 - stay_mins * 60 
-        this_mess = ("第" + str(count) + "位は " + row[0] + " さん．滞在時間は" + str(stay_hours) + "時間" + str(stay_mins) + "分" + str(stay_sec) + "秒でした．\n") 
+        this_mess = ("第" + str(count) + "位は " + row[1] + " さん．滞在時間は" + str(stay_hours) + "時間" + str(stay_mins) + "分" + str(stay_sec) + "秒でした．\n") 
         mess += this_mess
         count += 1
         cur.execute("UPDATE users SET user_staytime = %s WHERE user_id = %s",("0",row[0] ))
