@@ -49,7 +49,7 @@ async def on_voice_state_update(member , before ,after):
             staytimerows = cur.fetchall()
             stay_time = staytimerows[0][2]
             delta_stay_time = float(time.time()) - float(enter_time) + float(stay_time)
-            cur.execute("UPDATE users SET user_staytime = %s WHERE user_id = %s",(str(delta_stay_time),member.id ))
+            cur.execute("UPDATE users SET user_staytime = %s WHERE user_id = %s AND user_guild_id = %s",(str(delta_stay_time),member.id,member.guild.id ))
             cur.execute("DELETE FROM user_entertimes WHERE user_id = %s",(member.id, ))
             conn.commit()
             conn.close()
