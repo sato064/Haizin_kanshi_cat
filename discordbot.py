@@ -15,8 +15,7 @@ DB_NAME = "heroku_e41d4f624061a51"
 @client.event
 async def on_voice_state_update(member , before ,after):
     if before.channel != after.channel:
-        announceChs = [586514492481994765,764127010590949406]
-        if after.channel is not None and after.channel.id in announceChs:
+        if after.channel is not None:
             conn = mysql.connector.connect(
                 host = DB_HOST,
                 user = DB_USER,
@@ -34,7 +33,7 @@ async def on_voice_state_update(member , before ,after):
             conn.commit()
             conn.close()
 
-        if before.channel is not None and before.channel.id in announceChs:
+        if before.channel is not None:
             conn = mysql.connector.connect(
                 host = DB_HOST,
                 user = DB_USER,
@@ -122,5 +121,5 @@ async def debug_time(guild_id,mes_ch_id):
     print(mess)
     print(mes_ch_id)
 token = getenv('DISCORD_BOT_TOKEN')
-# bot.run(token)
+
 client.run(token)
