@@ -1,16 +1,14 @@
 from discord.ext import commands
 from os import getenv, name
-import traceback
 import discord
-import datetime
 import time
 import mysql.connector
 
 client = discord.Client()
-DB_HOST = "us-cdbr-east-05.cleardb.net"
+DB_HOST = getenv("DB_HOST")
 DB_USER = getenv("DB_USER")
 DB_PASS = getenv("DB_PASS")
-DB_NAME = "heroku_e41d4f624061a51"
+DB_NAME = getenv("DB_NAME")
 
 @client.event
 async def on_voice_state_update(member , before ,after):
@@ -120,6 +118,6 @@ async def debug_time(guild_id,mes_ch_id):
         count += 1
     print(mess)
     print(mes_ch_id)
-token = getenv('DISCORD_BOT_TOKEN')
 
+token = getenv('DISCORD_BOT_TOKEN')
 client.run(token)
