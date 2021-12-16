@@ -106,7 +106,7 @@ async def debug_time(guild_id,mes_ch_id):
                 database = DB_NAME
     )
     cur = conn.cursor()
-    cur.execute("select * from users ORDER BY CAST(user_staytime as signed) DESC")
+    cur.execute("select * from users WHERE user_guild_id = %s ORDER BY CAST(user_staytime as signed) DESC",(str(guild_id),))
     rows = cur.fetchall()
     conn.close()
     mess = "前回からのサーバ滞在時間報告です．\n"
