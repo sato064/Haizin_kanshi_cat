@@ -111,6 +111,7 @@ async def debug_time(guild_id,mes_ch_id):
                 password = DB_PASS,
                 database = DB_NAME
         )
+        cur = conn.cursor()
         stay_sec = round(float(row[2]))
         stay_hours = stay_sec // 3600
         stay_mins = (stay_sec - stay_hours * 3600) // 60
