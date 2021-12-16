@@ -59,12 +59,12 @@ async def on_voice_state_update(menber , before ,after):
 @client.event
 async def on_message(message):
     if message.content.startswith("/nekoWake"):
-        await print_time()
+        await print_time(message.guild.id,message.channel.id)
     if message.content.startswith("/nekoDebug"):
         print(message.guild.id)
         await debug_time(message.guild.id,message.channel.id)
 
-async def print_time():
+async def print_time(guild_id,mes_ch_id):
     conn = mysql.connector.connect(
                 host = DB_HOST,
                 user = DB_USER,
@@ -74,34 +74,6 @@ async def print_time():
     cur = conn.cursor()
     cur.execute("select * from users ORDER BY CAST(user_staytime as signed) DESC")
     rows = cur.fetchall()
-    mess = "前回からのサーバ滞在時間報告です．\n"
-    count = 1
-    for row in rows:
-        staySec = round(float(row[2]))
-        stayHours = staySec // 3600
-        stayMins = (staySec - stayHours * 3600) // 60
-        staySec = staySec - stayHours * 3600 - stayMins * 60 
-        this_mess = ("第" + str(count) + "位は " + row[0] + " さん．滞在時間は" + str(stayHours) + "時間" + str(stayMins) + "分" + str(staySec) + "秒でした．\n") 
-        mess += this_mess
-        count += 1
-        cur.execute("UPDATE users SET user_staytime = %s WHERE user_id = %s",("0",row[0] ))
-        conn.commit()
-        conn.close()
-    print(mess)
-    botRoom = client.get_channel(920744115740766268)
-    await botRoom.send(mess)
-
-async def debug_time(guild_id,mes_ch_id):
-    conn = mysql.connector.connect(
-                host = DB_HOST,
-                user = DB_USER,
-                password = DB_PASS,
-                database = DB_NAME
-    )
-    cur = conn.cursor()
-    cur.execute("select * from users ORDER BY CAST(user_staytime as signed) DESC")
-    rows = cur.fetchall()
-    conn.close()
     mess = "前回からのサーバ滞在時間報告です．\n"
     count = 1
     for row in rows:
@@ -122,6 +94,31 @@ async def debug_time(guild_id,mes_ch_id):
         cur.execute("UPDATE users SET user_staytime = %s WHERE user_id = %s",("0",row[0] ))
         conn.commit()
         conn.close()
+    print(mess)
+    bot_room = client.get_channel(mes_ch_id)
+    await bot_room.send(mess)
+
+async def debug_time(guild_id,mes_ch_id):
+    conn = mysql.connector.connect(
+                host = DB_HOST,
+                user = DB_USER,
+                password = DB_PASS,
+                database = DB_NAME
+    )
+    cur = conn.cursor()
+    cur.execute("select * from users ORDER BY CAST(user_staytime as signed) DESC")
+    rows = cur.fetchall()
+    conn.close()
+    mess = "前回からのサーバ滞在時間報告です．\n"
+    count = 1
+    for row in rows:
+        stay_sec = round(float(row[2]))
+        stay_hours = stay_sec // 3600
+        stay_mins = (stay_sec - stay_hours * 3600) // 60
+        stay_sec = stay_sec - stay_hours * 3600 - stay_mins * 60 
+        this_mess = ("第" + str(count) + "位は " + row[1] + " さん．滞在時間は" + str(stay_hours) + "時間" + str(stay_mins) + "分" + str(stay_sec) + "秒でした．\n") 
+        mess += this_mess
+        count += 1
     print(mess)
     print(mes_ch_id)
 token = getenv('DISCORD_BOT_TOKEN')
