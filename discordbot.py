@@ -62,7 +62,7 @@ async def on_message(message):
         await print_time()
     if message.content.startswith("/nekoDebug"):
         print(message.guild.id)
-        await debug_time(message.guild.id,message.channel)
+        await debug_time(message.guild.id,message.channel.id)
 
 async def print_time():
     conn = mysql.connector.connect(
