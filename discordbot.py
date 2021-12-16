@@ -61,7 +61,8 @@ async def on_message(message):
     if message.content.startswith("/nekoWake"):
         await print_time()
     if message.content.startswith("/nekoDebug"):
-        await debug_time()
+        print(message.guild)
+        await debug_time(message.guild)
 
 async def print_time():
     conn = mysql.connector.connect(
@@ -90,7 +91,7 @@ async def print_time():
     botRoom = client.get_channel(920744115740766268)
     await botRoom.send(mess)
 
-async def debug_time():
+async def debug_time(ch_id):
     conn = mysql.connector.connect(
                 host = DB_HOST,
                 user = DB_USER,
@@ -114,6 +115,7 @@ async def debug_time():
         conn.commit()
         conn.close()
     print(mess)
+    print(ch_id)
 token = getenv('DISCORD_BOT_TOKEN')
 # bot.run(token)
 client.run(token)
